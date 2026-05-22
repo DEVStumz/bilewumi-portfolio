@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Bilewumi Ifeoluwa Isaac — Logistics Manager</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #0D1B2A;
+    --navy-mid: #1B2E44;
+    --navy-light: #243B55;
+    --gold: #C9A84C;
+    --gold-light: #E2C97E;
+    --cream: #F5F0E8;
+    --cream-dim: #EDE7D9;
+    --white: #FFFFFF;
+    --text-muted: #8A9BAD;
+    --rule: rgba(201,168,76,0.25);
+    --fs-display: clamp(2.6rem, 8vw, 5.2rem);
+    --fs-h2: clamp(1.3rem, 3.5vw, 1.75rem);
+    --fs-h3: clamp(1rem, 2.5vw, 1.15rem);
+    --fs-body: clamp(0.875rem, 2vw, 1rem);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--navy);
+    color: var(--cream);
+    overflow-x: hidden;
+    line-height: 1.7;
+    font-size: var(--fs-body);
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 1.5rem;
+    background: rgba(13,27,42,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--rule);
+    transition: padding 0.3s;
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 0.04em;
+    text-decoration: none;
+  }
+  .nav-links {
+    display: flex; gap: 1.5rem; list-style: none;
+  }
+  .nav-links a {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+
+  .hamburger {
+    display: none;
+    flex-direction: column; gap: 5px;
+    background: none; border: none; cursor: pointer; padding: 4px;
+  }
+  .hamburger span {
+    display: block; width: 22px; height: 2px;
+    background: var(--cream); border-radius: 2px; transition: all 0.3s;
+  }
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  .mobile-menu {
+    display: none; position: fixed; top: 57px; left: 0; right: 0; z-index: 99;
+    background: var(--navy-mid);
+    border-bottom: 1px solid var(--rule);
+    flex-direction: column; padding: 1rem 1.5rem 1.5rem;
+    gap: 1.2rem;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a {
+    font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.12em;
+    color: var(--cream); text-decoration: none; transition: color 0.2s;
+  }
+  .mobile-menu a:hover { color: var(--gold); }
+
+  @media (max-width: 640px) {
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100dvh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: clamp(5rem, 10vw, 8rem) clamp(1.25rem, 5vw, 5rem) 4rem;
+    position: relative; overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 70% 60% at 80% 30%, rgba(201,168,76,0.07) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 80% at -10% 70%, rgba(36,59,85,0.6) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.22em;
+    color: var(--gold); margin-bottom: 1.2rem;
+    display: flex; align-items: center; gap: 0.75rem;
+    opacity: 0; animation: fadeUp 0.6s 0.2s forwards;
+  }
+  .hero-eyebrow::before {
+    content: ''; display: block; width: 32px; height: 1px; background: var(--gold);
+  }
+
+  .hero-name {
+    font-family: 'Playfair Display', serif;
+    font-size: var(--fs-display);
+    font-weight: 900;
+    line-height: 1.05;
+    color: var(--white);
+    opacity: 0; animation: fadeUp 0.7s 0.35s forwards;
+  }
+  .hero-name em {
+    font-style: normal; color: var(--gold); display: block;
+  }
+
+  .hero-title {
+    margin-top: 1.2rem;
+    font-size: clamp(1rem, 2.8vw, 1.35rem);
+    font-weight: 300;
+    color: var(--cream-dim);
+    max-width: 520px;
+    opacity: 0; animation: fadeUp 0.7s 0.5s forwards;
+  }
+
+  .hero-contact {
+    margin-top: 2rem;
+    display: flex; flex-wrap: wrap; gap: 0.75rem 1.5rem;
+    opacity: 0; animation: fadeUp 0.7s 0.65s forwards;
+  }
+  .hero-contact a, .hero-contact span {
+    font-size: 0.8rem; letter-spacing: 0.04em;
+    color: var(--text-muted); text-decoration: none;
+    display: flex; align-items: center; gap: 0.45rem;
+    transition: color 0.2s;
+  }
+  .hero-contact a:hover { color: var(--gold); }
+  .contact-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
+
+  .hero-cta {
+    margin-top: 2.5rem;
+    display: flex; gap: 1rem; flex-wrap: wrap;
+    opacity: 0; animation: fadeUp 0.7s 0.8s forwards;
+  }
+  .btn-primary {
+    background: var(--gold); color: var(--navy);
+    padding: 0.75rem 1.8rem; border: none;
+    font-family: 'DM Sans', sans-serif; font-size: 0.82rem;
+    font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+    text-decoration: none; cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+  }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+
+  .btn-outline {
+    background: transparent; color: var(--cream);
+    padding: 0.75rem 1.8rem;
+    border: 1px solid rgba(245,240,232,0.25);
+    font-family: 'DM Sans', sans-serif; font-size: 0.82rem;
+    font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
+    text-decoration: none; cursor: pointer;
+    transition: border-color 0.2s, color 0.2s, transform 0.15s;
+    clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+  }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+
+  .hero-number-strip {
+    margin-top: 4rem;
+    display: flex; flex-wrap: wrap; gap: 0; 
+    border-top: 1px solid var(--rule);
+    padding-top: 1.5rem;
+    opacity: 0; animation: fadeUp 0.7s 0.95s forwards;
+  }
+  .hero-stat {
+    flex: 1; min-width: 110px; padding-right: 2rem;
+  }
+  .hero-stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 4vw, 2.2rem);
+    font-weight: 700; color: var(--gold);
+    line-height: 1;
+  }
+  .hero-stat-label {
+    font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em;
+    color: var(--text-muted); margin-top: 0.35rem;
+  }
+
+  /* ── SECTIONS ── */
+  section { padding: clamp(3.5rem, 8vw, 6rem) clamp(1.25rem, 5vw, 5rem); }
+
+  .section-label {
+    font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.25em;
+    color: var(--gold); margin-bottom: 0.6rem;
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+  .section-label::after {
+    content: ''; flex: 1; max-width: 60px; height: 1px; background: var(--rule);
+  }
+
+  .section-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: var(--fs-h2);
+    font-weight: 700; color: var(--white);
+    margin-bottom: 2.5rem; max-width: 480px;
+  }
+
+  /* ── ABOUT ── */
+  #about { background: var(--navy-mid); }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+  @media (min-width: 768px) {
+    .about-grid { grid-template-columns: 1fr 1fr; align-items: start; }
+  }
+  .about-text p { color: var(--cream-dim); margin-bottom: 1rem; }
+  .about-badges {
+    display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem;
+  }
+  .badge {
+    background: rgba(201,168,76,0.12);
+    border: 1px solid rgba(201,168,76,0.3);
+    color: var(--gold-light);
+    padding: 0.35rem 0.9rem;
+    font-size: 0.75rem; font-weight: 500;
+    letter-spacing: 0.04em;
+  }
+
+  .about-highlights {
+    display: flex; flex-direction: column; gap: 1.25rem;
+  }
+  .highlight-card {
+    background: var(--navy);
+    border-left: 3px solid var(--gold);
+    padding: 1.1rem 1.25rem;
+  }
+  .highlight-card h4 {
+    font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em;
+    color: var(--gold); margin-bottom: 0.3rem;
+  }
+  .highlight-card p { color: var(--cream-dim); font-size: 0.9rem; margin: 0; }
+
+  /* ── SKILLS ── */
+  #skills { background: var(--navy); }
+  .skills-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+  @media (min-width: 540px) { .skills-grid { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 900px) { .skills-grid { grid-template-columns: repeat(3, 1fr); } }
+
+  .skill-card {
+    background: var(--navy-mid);
+    border: 1px solid rgba(201,168,76,0.15);
+    padding: 1.5rem;
+    transition: border-color 0.25s, transform 0.2s;
+  }
+  .skill-card:hover { border-color: rgba(201,168,76,0.5); transform: translateY(-3px); }
+
+  .skill-icon {
+    width: 40px; height: 40px;
+    border: 1px solid var(--rule);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1rem;
+    color: var(--gold); font-size: 1.2rem;
+  }
+  .skill-card h3 {
+    font-size: 0.95rem; font-weight: 600;
+    color: var(--white); margin-bottom: 0.5rem;
+  }
+  .skill-card p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; }
+
+  /* ── EXPERIENCE ── */
+  #experience { background: var(--navy-mid); }
+
+  .timeline { position: relative; }
+  .timeline::before {
+    content: '';
+    position: absolute; left: 12px; top: 6px; bottom: 6px;
+    width: 1px; background: var(--rule);
+  }
+  @media (min-width: 768px) {
+    .timeline::before { left: 20px; }
+  }
+
+  .timeline-item {
+    position: relative;
+    padding-left: 3rem; margin-bottom: 3rem;
+  }
+  @media (min-width: 768px) { .timeline-item { padding-left: 4rem; } }
+
+  .timeline-dot {
+    position: absolute; left: 4px; top: 6px;
+    width: 18px; height: 18px;
+    border: 2px solid var(--gold);
+    background: var(--navy-mid);
+    transform: rotate(45deg);
+  }
+  @media (min-width: 768px) { .timeline-dot { left: 12px; } }
+
+  .timeline-date {
+    font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.12em;
+    color: var(--gold); margin-bottom: 0.5rem;
+  }
+  .timeline-role {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.05rem, 2.5vw, 1.3rem);
+    font-weight: 700; color: var(--white);
+  }
+  .timeline-company {
+    font-size: 0.85rem; color: var(--text-muted);
+    margin: 0.2rem 0 1rem;
+  }
+  .timeline-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; }
+  .timeline-bullets li {
+    font-size: 0.9rem; color: var(--cream-dim);
+    padding-left: 1.2rem; position: relative;
+  }
+  .timeline-bullets li::before {
+    content: ''; position: absolute; left: 0; top: 0.55em;
+    width: 5px; height: 5px;
+    background: var(--gold); transform: rotate(45deg);
+  }
+  .timeline-bullets strong { color: var(--gold-light); font-weight: 600; }
+
+  /* ── EDUCATION & CERTS ── */
+  #education { background: var(--navy); }
+
+  .edu-cert-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+  @media (min-width: 768px) {
+    .edu-cert-grid { grid-template-columns: 1.2fr 1fr; gap: 3rem; }
+  }
+
+  .edu-item { margin-bottom: 1.75rem; }
+  .edu-degree {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem; font-weight: 700; color: var(--white);
+    margin-bottom: 0.2rem;
+  }
+  .edu-institution { font-size: 0.85rem; color: var(--text-muted); }
+  .edu-period {
+    display: inline-block; margin-top: 0.4rem;
+    font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em;
+    color: var(--gold); padding: 0.2rem 0.7rem;
+    border: 1px solid rgba(201,168,76,0.3);
+  }
+
+  .cert-list { display: flex; flex-direction: column; gap: 1rem; }
+  .cert-item {
+    display: flex; align-items: flex-start; gap: 1rem;
+    padding: 1rem 1.1rem;
+    background: var(--navy-mid);
+    border-left: 2px solid var(--gold);
+  }
+  .cert-icon { color: var(--gold); font-size: 1.1rem; margin-top: 0.05rem; flex-shrink: 0; }
+  .cert-name { font-size: 0.88rem; font-weight: 500; color: var(--white); }
+  .cert-issuer { font-size: 0.78rem; color: var(--text-muted); margin-top: 0.15rem; }
+
+  /* ── CONTACT CTA ── */
+  #contact {
+    background: var(--navy-mid);
+    text-align: center;
+  }
+  .contact-inner { max-width: 540px; margin: 0 auto; }
+  .contact-inner .section-heading { max-width: none; margin-bottom: 1rem; }
+  .contact-sub { color: var(--cream-dim); margin-bottom: 2rem; }
+
+  .contact-links {
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem;
+    margin-top: 2rem;
+  }
+  .contact-link {
+    display: flex; align-items: center; gap: 0.5rem;
+    padding: 0.65rem 1.4rem;
+    border: 1px solid var(--rule);
+    color: var(--cream-dim); text-decoration: none;
+    font-size: 0.82rem; letter-spacing: 0.04em;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .contact-link:hover { border-color: var(--gold); color: var(--gold); }
+  .contact-link svg { width: 15px; height: 15px; fill: currentColor; flex-shrink: 0; }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 1.5rem clamp(1.25rem, 5vw, 5rem);
+    border-top: 1px solid var(--rule);
+    display: flex; flex-wrap: wrap; justify-content: space-between;
+    align-items: center; gap: 0.75rem;
+    font-size: 0.75rem; color: var(--text-muted);
+  }
+  footer a { color: var(--gold); text-decoration: none; }
+
+  /* ── SCROLL REVEAL ── */
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.65s, transform 0.65s; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  /* ── SCROLL INDICATOR ── */
+  .scroll-line {
+    position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
+    opacity: 0; animation: fadeUp 0.6s 1.2s forwards;
+  }
+  .scroll-line span { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.18em; color: var(--text-muted); }
+  .scroll-line::after {
+    content: ''; display: block; width: 1px; height: 36px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    animation: scrollPulse 1.6s 1.5s ease-in-out infinite;
+  }
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.3; transform: scaleY(1); }
+    50% { opacity: 1; transform: scaleY(1.15); }
+  }
+
+  /* ── GOLD RULE ── */
+  .gold-rule { border: none; border-top: 1px solid var(--rule); margin: 0; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">Bilewumi I. Isaac</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Toggle navigation">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about" class="mobile-nav-link">About</a>
+  <a href="#skills" class="mobile-nav-link">Skills</a>
+  <a href="#experience" class="mobile-nav-link">Experience</a>
+  <a href="#education" class="mobile-nav-link">Education</a>
+  <a href="#contact" class="mobile-nav-link">Contact</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-eyebrow">Logistics Manager &amp; Fleet Operations</div>
+  <h1 class="hero-name">
+    Bilewumi<br/>
+    <em>Ifeoluwa Isaac</em>
+  </h1>
+  <p class="hero-title">
+    Safety-conscious logistics professional specialising in fleet operations, route optimisation, and team coordination — based in Ibadan, Nigeria.
+  </p>
+  <div class="hero-contact">
+    <span><span class="contact-dot"></span>Ibadan, Nigeria</span>
+    <a href="tel:+2348162084889"><span class="contact-dot"></span>+234 816 208 4889</a>
+    <a href="mailto:Bilewumiisaac@gmail.com"><span class="contact-dot"></span>Bilewumiisaac@gmail.com</a>
+  </div>
+  <div class="hero-cta">
+    <a href="#experience" class="btn-primary">View Experience</a>
+    <a href="#contact" class="btn-outline">Get In Touch</a>
+  </div>
+  <div class="hero-number-strip">
+    <div class="hero-stat">
+      <div class="hero-stat-num">7+</div>
+      <div class="hero-stat-label">Years in Logistics</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">100%</div>
+      <div class="hero-stat-label">Punctuality Record</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">2</div>
+      <div class="hero-stat-label">Industry Certifications</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">FRSC</div>
+      <div class="hero-stat-label">Fully Compliant</div>
+    </div>
+  </div>
+  <div class="scroll-line"><span>Scroll</span></div>
+</section>
+
+<hr class="gold-rule"/>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">About</div>
+  <h2 class="section-heading reveal">Who I Am</h2>
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <p>
+        Resourceful and safety-conscious logistics professional with a strong background in fleet operations, route optimisation, and team coordination across multiple sectors in Nigeria.
+      </p>
+      <p>
+        What sets me apart is my advanced training in behavioural psychology — giving me a unique edge in human management, stakeholder communication, and conflict resolution in fast-paced environments.
+      </p>
+      <p>
+        Currently maintaining a flawless punctuality record at Valencia School while pursuing my B.Sc. in Psychology at the University of Ibadan.
+      </p>
+      <div class="about-badges">
+        <span class="badge">Fleet Management</span>
+        <span class="badge">Route Optimisation</span>
+        <span class="badge">FRSC Compliant</span>
+        <span class="badge">VIO Standards</span>
+        <span class="badge">Human Management</span>
+        <span class="badge">Supply Chain</span>
+      </div>
+    </div>
+    <div class="about-highlights reveal">
+      <div class="highlight-card">
+        <h4>Core Strength</h4>
+        <p>Combining transport logistics expertise with behavioural psychology insights to lead teams and manage stakeholder dynamics with precision.</p>
+      </div>
+      <div class="highlight-card">
+        <h4>Operations Philosophy</h4>
+        <p>Every route is an opportunity to demonstrate reliability. Safety, accountability, and punctuality are non-negotiable standards — not aspirations.</p>
+      </div>
+      <div class="highlight-card">
+        <h4>Currently Available</h4>
+        <p>Open to senior logistics, fleet management, and operations coordination roles across Nigeria. References available on request.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="gold-rule"/>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">Expertise</div>
+  <h2 class="section-heading reveal">Core Competencies</h2>
+  <div class="skills-grid">
+    <div class="skill-card reveal">
+      <div class="skill-icon">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6">
+          <rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>
+        </svg>
+      </div>
+      <h3>Fleet &amp; Asset Management</h3>
+      <p>Route planning, preventive maintenance scheduling, and resource allocation across multi-vehicle operations.</p>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-icon">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6">
+          <path d="M3 3h18v4H3z"/><path d="M3 10h18v4H3z"/><path d="M3 17h18v4H3z"/>
+        </svg>
+      </div>
+      <h3>Supply Chain Coordination</h3>
+      <p>Delivery tracking, material distribution, inventory accountability, and timely project-site logistics.</p>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-icon">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
+      </div>
+      <h3>Safety &amp; Compliance</h3>
+      <p>Strict adherence to FRSC and VIO transport safety standards with comprehensive risk mitigation protocols.</p>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-icon">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+        </svg>
+      </div>
+      <h3>Human &amp; Conflict Management</h3>
+      <p>Leveraging psychological training to manage team dynamics, client relations, and complex stakeholder communication.</p>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-icon">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6">
+          <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+        </svg>
+      </div>
+      <h3>Operations Problem-Solving</h3>
+      <p>Rapid response to route disruptions, vehicle emergencies, and tight scheduling conflicts with calm decisiveness.</p>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-icon">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6">
+          <rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+        </svg>
+      </div>
+      <h3>Digital Record-Keeping</h3>
+      <p>Computer proficiency in digital trip logs, fuel consumption metrics, and operational report management.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="gold-rule"/>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-label">Career</div>
+  <h2 class="section-heading reveal">Work Experience</h2>
+  <div class="timeline">
+
+    <div class="timeline-item reveal">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">May 2024 – Present</div>
+      <div class="timeline-role">School Driver</div>
+      <div class="timeline-company">Valencia School, Oluyole</div>
+      <ul class="timeline-bullets">
+        <li><strong>Route Optimisation:</strong> Safely conveyed students daily with 100% punctuality and strict adherence to transport schedules.</li>
+        <li><strong>Asset Maintenance:</strong> Daily routine checks and preventive maintenance on the school fleet, ensuring full roadworthiness.</li>
+        <li><strong>Safety Management:</strong> Managed student discipline and safety inside the vehicle, maintaining a secure environment aligned with school policies.</li>
+        <li><strong>Stakeholder Communication:</strong> Coordinated directly with parents and school administration on pick-up/drop-off schedules and route adjustments.</li>
+        <li><strong>Accountability Logs:</strong> Maintained precise trip logs, fuel consumption data, and vehicle condition reports for administrative audit.</li>
+        <li><strong>Compliance:</strong> Full adherence to VIO and FRSC transport safety standards at all times.</li>
+      </ul>
+    </div>
+
+    <div class="timeline-item reveal">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">April 2018 – December 2020</div>
+      <div class="timeline-role">Supply Truck Driver</div>
+      <div class="timeline-company">SAOLAB Construction and Building Materials</div>
+      <ul class="timeline-bullets">
+        <li><strong>Logistics Delivery:</strong> Managed timely transport and delivery of construction materials — blocks, cement, and sand — to various project sites.</li>
+        <li><strong>Load Distribution:</strong> Oversaw secure loading and unloading of heavy materials to prevent transit damage and ensure axle weight compliance.</li>
+        <li><strong>Client Relations:</strong> Handled on-site delivery verification and documentation, reinforcing company reliability and trust.</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<hr class="gold-rule"/>
+
+<!-- EDUCATION & CERTS -->
+<section id="education">
+  <div class="section-label">Qualifications</div>
+  <h2 class="section-heading reveal">Education &amp; Certifications</h2>
+  <div class="edu-cert-grid">
+    <div class="reveal">
+      <h3 style="font-size:0.75rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--text-muted);margin-bottom:1.5rem;">Academic Background</h3>
+      <div class="edu-item">
+        <div class="edu-degree">B.Sc. in Psychology</div>
+        <div class="edu-institution">University of Ibadan — Distance Learning Centre</div>
+        <span class="edu-period">Jan 2018 – Oct 2025</span>
+      </div>
+      <div class="edu-item">
+        <div class="edu-degree">NCE in Economics / Social Studies</div>
+        <div class="edu-institution">Osun State College of Education, Ilesha</div>
+        <span class="edu-period">March 2015 – Nov 2018</span>
+      </div>
+    </div>
+    <div class="reveal">
+      <h3 style="font-size:0.75rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--text-muted);margin-bottom:1.5rem;">Certifications</h3>
+      <div class="cert-list">
+        <div class="cert-item">
+          <div class="cert-icon">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6">
+              <circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/>
+            </svg>
+          </div>
+          <div>
+            <div class="cert-name">Human Management</div>
+            <div class="cert-issuer">Collaborative Institutional Training Initiative (CITI), 2025</div>
+          </div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-icon">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6">
+              <rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+            </svg>
+          </div>
+          <div>
+            <div class="cert-name">Computer Proficiency Test Certificate</div>
+            <div class="cert-issuer">Verified digital competency in operational tools &amp; record management</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="gold-rule"/>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="section-label" style="justify-content:center;">Contact</div>
+    <h2 class="section-heading reveal" style="max-width:none;text-align:center;">Let's Work Together</h2>
+    <p class="contact-sub reveal">
+      Available for logistics management, fleet operations, and transport coordination roles across Nigeria. References available upon request.
+    </p>
+    <div class="hero-cta" style="justify-content:center;" class="reveal">
+      <a href="mailto:Bilewumiisaac@gmail.com" class="btn-primary">Send an Email</a>
+    </div>
+    <div class="contact-links reveal">
+      <a href="tel:+2348162084889" class="contact-link">
+        <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        +234 816 208 4889
+      </a>
+      <a href="tel:+2348109738154" class="contact-link">
+        <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        +234 810 973 8154
+      </a>
+      <a href="mailto:Bilewumiisaac@gmail.com" class="contact-link">
+        <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        Bilewumiisaac@gmail.com
+      </a>
+      <span class="contact-link" style="cursor:default;">
+        <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Ibadan, Nigeria
+      </span>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>© 2025 Bilewumi Ifeoluwa Isaac</span>
+  <span>Logistics Manager &mdash; Ibadan, Nigeria</span>
+</footer>
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+  });
+  document.querySelectorAll('.mobile-nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+    });
+  });
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
